@@ -7998,5 +7998,13 @@
     "email": "cpochetrr@admin.ch",
     "gender": "Female",
     "job_title": "Senior Financial Analyst"
+  },
+  {
+    "first_name": "raj",
+    "last_name": "patidar",
+    "email": "patidarraj465@gmail.com",
+    "gender": "male",
+    "job_title": "backend_developer",
+    "id": 1001
   }
 ]
