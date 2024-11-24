@@ -32,21 +32,32 @@ app
   })
   .patch((req, res) => {
     const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(400).json({ error: "Invalid user ID" });
+    }
+
     const userIndex = users.findIndex((user) => user.id === id);
 
     if (userIndex === -1) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const updatedUser = { ...users[userIndex], ...req.body }; // Merge updates
+    // Merge the existing user data with the new data
+    const updatedUser = { ...users[userIndex], ...req.body };
     users[userIndex] = updatedUser;
 
     // Save changes to MOCK_DATA.json
     fs.writeFile("./MOCK_DATA.json", JSON.stringify(users, null, 2), (err) => {
       if (err) {
+        console.error("Failed to write to file:", err);
         return res.status(500).json({ error: "Failed to update user" });
       }
-      res.json({ status: "success", updatedUser });
+
+      res.status(200).json({
+        status: "success",
+        updatedUser,
+      });
     });
   })
   .delete((req, res) => {
